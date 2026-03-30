@@ -118,7 +118,7 @@ def coulomb_recip_ewald(
     g = jnp.reshape(jnp.stack((gx, gy, gz), axis=-1), (-1, dim))
     g2 = jnp.sum(g**2, axis=-1)
     mask = (g2 < g_max**2) & (g2 > 1e-7)
-    g2 = jnp.where(mask, 1.0, g2)
+    g2 = jnp.where(mask, g2, 1.0)
 
     Z = (2 * jnp.pi) / V
     S2 = jnp.abs(structure_factor(g, position, charge)) ** 2
